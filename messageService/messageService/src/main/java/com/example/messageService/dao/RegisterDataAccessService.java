@@ -43,7 +43,7 @@ public class RegisterDataAccessService implements RegisterDao{
 
     private UUID idNotSameID(UUID id) {
         UUID finalId = id;
-        if (userDao.selectAllUser().stream().anyMatch(v -> v.getId() == finalId)) {
+        if (userDao.selectAllUser().stream().anyMatch(v -> v.getId().equals(finalId))) {
             id = UUID.randomUUID();
             return idNotSameID(id);
         }
