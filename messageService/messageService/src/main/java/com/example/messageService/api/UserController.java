@@ -3,7 +3,6 @@ package com.example.messageService.api;
 import com.example.messageService.constants.Constants;
 import com.example.messageService.model.User;
 import com.example.messageService.service.UserService;
-import com.example.messageService.utils.UserThrowException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("api/v1/user")
+@RequestMapping(Constants.Url.requestUser)
 @RestController
 public class UserController {
     private final UserService userService;

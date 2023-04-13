@@ -23,8 +23,8 @@ public class RoomChatSingleService {
         return roomChatSingleDao.selectAllRoom();
     }
 
-    public int insertRoom(UUID id, RoomChatSingle room) {
-        return roomChatSingleDao.insertRoom(id, room);
+    public int insertRoom(RoomChatSingle room) {
+        return roomChatSingleDao.insertRoom(room);
     }
 
     public List<RoomChatSingle> groupRoomById(UUID id) {

@@ -47,6 +47,8 @@ public class UserDataAccessService implements UserDao {
             mapperUser(userUpdate, user);
             userRepository.save(userUpdate);
         }
+        String sqlQuery = "";
+
         return userUpdate;
     }
 

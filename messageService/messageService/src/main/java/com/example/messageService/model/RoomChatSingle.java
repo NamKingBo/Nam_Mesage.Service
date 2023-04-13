@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "roomSingle")
+@Table(name = "roomsSingle")
 public class RoomChatSingle {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -12,6 +12,7 @@ public class RoomChatSingle {
     private String code;
     private String name;
     private String lastMessage;
+    private String updateAt;
     private String alias;
 
     public UUID getId() {
@@ -52,5 +53,13 @@ public class RoomChatSingle {
 
     public void setLastMessage(String lastMessage) {
         this.lastMessage = lastMessage;
+    }
+
+    public String getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(String updateAt) {
+        this.updateAt = updateAt;
     }
 }

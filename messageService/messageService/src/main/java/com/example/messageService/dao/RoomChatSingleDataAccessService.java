@@ -1,5 +1,6 @@
 package com.example.messageService.dao;
 
+import com.example.messageService.model.OpenRoomResponse;
 import com.example.messageService.model.RoomChatSingle;
 import com.example.messageService.usecase.RoomChatSingleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,14 @@ public class RoomChatSingleDataAccessService implements RoomChatSingleDao {
     private List<RoomChatSingle> DBRoom = new ArrayList<>();
 
     @Override
-    public int insertRoom(UUID id, RoomChatSingle room) {
-        UUID newId = idNotSameID(id);
+    public OpenRoomResponse insertRoom(UUID id, RoomChatSingle room) {
+        if (isSameRoomId(id)) {
+            RoomChatSingle room = sel
+            return new OpenRoomResponse(id, );
+        }
         if (!isSameRoomCode(room.getCode())) {
-            String sqlQuery = "INSERT INTO roomSingle(uid, code, name, lastMessage, alias) VALUES ('"
-                    + newId + "','" + room.getName() + "','" + room.getCode() + "','" + room.getLastMessage() + "','" + room.getAlias() + "')";
+            String sqlQuery = "INSERT INTO roomsSingle(uid, code, name, lastMessage, updateAt, alias) VALUES ('"
+                    + newId + "','" + room.getName() + "','" + room.getCode() + "','" + room.getLastMessage() + "','" + room.getUpdateAt() + "','" + room.getAlias() + "')";
             jdbcTemplate.update(sqlQuery);
 
             return 0;
@@ -59,14 +63,8 @@ public class RoomChatSingleDataAccessService implements RoomChatSingleDao {
         return false;
     }
 
-    private UUID idNotSameID(UUID id) {
-        UUID finalId = id;
-        if (selectAllRoom().stream().anyMatch(v -> v.getId().equals(finalId))) {
-            id = UUID.randomUUID();
-            return idNotSameID(id);
-        }
-
-        return finalId;
+    private boolean isSameRoomId(UUID id) {
+        return selectAllRoom().stream().anyMatch(v -> v.getId().equals(id));
     }
 
     private boolean isSameRoomCode(String codeRoom) {
