@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -21,22 +22,28 @@ public class RoomChatSingleDataAccessService implements RoomChatSingleDao {
     private RoomChatSingleRepository roomChatSingleRepository;
 
     private List<RoomChatSingle> DBRoom = new ArrayList<>();
+    private  RoomChatSingle selectRoom;
 
     @Override
     public OpenRoomResponse insertRoom(UUID id, RoomChatSingle room) {
-        if (isSameRoomId(id)) {
-            RoomChatSingle room = sel
-            return new OpenRoomResponse(id, );
-        }
-        if (!isSameRoomCode(room.getCode())) {
+        if (!isSameRoomId(id)) {
             String sqlQuery = "INSERT INTO roomsSingle(uid, code, name, lastMessage, updateAt, alias) VALUES ('"
-                    + newId + "','" + room.getName() + "','" + room.getCode() + "','" + room.getLastMessage() + "','" + room.getUpdateAt() + "','" + room.getAlias() + "')";
+                    + id + "','" + room.getName() + "','" + room.getCode() + "','" + room.getLastMessage() + "','" + room.getUpdateAt() + "','" + room.getAlias() + "')";
             jdbcTemplate.update(sqlQuery);
-
-            return 0;
         }
 
-        return 1;
+        selectRoom = selectRoomByID(id).orElse(null);
+
+        assert selectRoom != null;
+        return new OpenRoomResponse(id, selectRoom.getCode(), selectRoom.getName(), selectRoom.getAlias());;
+    }
+
+    @Override
+    public Optional<RoomChatSingle> selectRoomByID(UUID id) {
+        DBRoom = roomChatSingleRepository.findAll();
+        return DBRoom.stream()
+                .filter(v -> v.getId().equals(id))
+                .findFirst();
     }
 
     @Override

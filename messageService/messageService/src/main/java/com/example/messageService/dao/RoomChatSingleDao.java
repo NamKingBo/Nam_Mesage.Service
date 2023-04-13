@@ -15,6 +15,8 @@ public interface RoomChatSingleDao {
         return insertRoom(id, room);
     }
 
+    Optional<RoomChatSingle> selectRoomByID(UUID id);
+
     List<RoomChatSingle> groupRoomById(UUID id);
 
     List<RoomChatSingle> selectAllRoom();

@@ -1,6 +1,7 @@
 package com.example.messageService.service;
 
 import com.example.messageService.dao.RoomChatSingleDao;
+import com.example.messageService.model.OpenRoomResponse;
 import com.example.messageService.model.RoomChatSingle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,7 +24,7 @@ public class RoomChatSingleService {
         return roomChatSingleDao.selectAllRoom();
     }
 
-    public int insertRoom(RoomChatSingle room) {
+    public OpenRoomResponse insertRoom(RoomChatSingle room) {
         return roomChatSingleDao.insertRoom(room);
     }
 
