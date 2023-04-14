@@ -35,7 +35,7 @@ public class RoomChatSingleDataAccessService implements RoomChatSingleDao {
         selectRoom = selectRoomByID(id).orElse(null);
 
         assert selectRoom != null;
-        return new OpenRoomResponse(id, selectRoom.getCode(), selectRoom.getName(), selectRoom.getAlias());;
+        return new OpenRoomResponse(id, selectRoom.getCode(), selectRoom.getName(), selectRoom.getAlias());
     }
 
     @Override
